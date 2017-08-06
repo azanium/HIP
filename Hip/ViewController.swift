@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func play() {
+        
         if player.playerState == .playing || player.playerState == .paused {
             player.pauseOrPlay()
         }

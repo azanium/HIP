@@ -29,6 +29,7 @@ class HPStreamer {
     }
     
     var delegate: HPStreamerDelegate?
+    var downloadManager: HPDownloadManager!
     
     // MARK: - Init
     
@@ -72,6 +73,9 @@ class HPStreamer {
             return
         }
         
+        
+        downloadManager = HPDownloadManager()
+        
         // Build the segment parts
         if let segments = audioPl.segmentList {
             
@@ -104,12 +108,12 @@ class HPStreamer {
                         targetParts += [HPDownloadManager.localDestination.appendingPathComponent(targetFilename)]
                         
                         // Create download operation
-                        HPDownloadManager.shared.addDownload(url, offset: Int(offset)!, length: Int(length)!, targetFilename: targetFilename)
+                        downloadManager.addDownload(url, offset: Int(offset)!, length: Int(length)!, targetFilename: targetFilename)
                     }
                 }
             }
             
-            HPDownloadManager.shared.start({ (finishedTask, totalTask) in
+            downloadManager.start({ (finishedTask, totalTask) in
                 
                 DispatchQueue.main.async {
                     self.delegate?.streamerProgress(currentTask: finishedTask, totalTask: totalTask)

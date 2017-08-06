@@ -37,7 +37,11 @@ class HPDownloadManager : NSObject {
     
     override init() {
         super.init()
-
+    }
+    
+    deinit {}
+    
+    fileprivate func setupQueue() {
         downloadQueue = OperationQueue()
         downloadQueue.maxConcurrentOperationCount = 2
         downloadQueue.name = "MaxQ"
@@ -45,7 +49,7 @@ class HPDownloadManager : NSObject {
         downloadQueue.addObserver(self, forKeyPath: "operationCount", options: NSKeyValueObservingOptions.new, context: nil)
     }
     
-    deinit {
+    fileprivate func disposeQueue() {
         downloadQueue.removeObserver(self, forKeyPath: "operationCount")
     }
 
@@ -67,6 +71,7 @@ class HPDownloadManager : NSObject {
             else {
                 DispatchQueue.main.async {
                     self._totalOperations = 0
+                    self.disposeQueue()
                     self.completionHandler?()
                 }
             }
@@ -83,6 +88,7 @@ class HPDownloadManager : NSObject {
     }
     
     func start(_ progressHandler: ProgressHandler? = nil, _ completionHandler: DownloadCompletionHandler? = nil) {
+        setupQueue()
         
         self.progressHandler = progressHandler
         self.completionHandler = completionHandler
