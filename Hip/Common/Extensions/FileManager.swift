@@ -14,10 +14,10 @@ extension FileManager {
         let writer = try FileHandle(forWritingTo: destination)
         try files.forEach({ partLocation in
             let reader = try FileHandle(forReadingFrom: partLocation)
-            var data = reader.readData(ofLength: chunkSize)
+            var data = reader.readDataToEndOfFile()
             while data.count > 0 {
                 writer.write(data)
-                data = reader.readData(ofLength: chunkSize)
+                data = reader.readDataToEndOfFile()
             }
             reader.closeFile()
         })

@@ -31,7 +31,7 @@ class HPDownloadOperation: AsyncOperation {
     override func execute() {
         print("# Downloading: \(offset), \(length) => url: \(self.url!.absoluteString)")
         
-        let headers = ["Range":"bytes=\(offset)-\(offset+length)"]
+        let headers = ["Range":"bytes=\(offset)-\(offset+length-1)"]
         
         let request = download(self.url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: headers) { (tempUrl, response) -> (destinationURL: URL, options: DownloadRequest.DownloadOptions) in
             

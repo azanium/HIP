@@ -100,7 +100,7 @@ class HPPlayer {
                 
                 DispatchQueue.global().async {
                     do {
-                        try FileManager.default.merge(files: targetParts, to: HPDownloadManager.localDestination.appendingPathComponent(targetAudioFile))
+                        try FileManager.default.merge(files: targetParts, to: HPDownloadManager.localDestination.appendingPathComponent(targetAudioFile), chunkSize: 1000)
                     }
                     catch let err {
                         print("* Merge failed: \(err)")
