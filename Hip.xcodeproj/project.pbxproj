@@ -20,6 +20,7 @@
 		C19A4C4A1F35CC0300D0E4A8 /* HPDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A4C491F35CC0300D0E4A8 /* HPDownloadOperation.swift */; };
 		C19A4C4C1F360FF700D0E4A8 /* HPDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A4C4B1F360FF700D0E4A8 /* HPDownloadManager.swift */; };
 		C1A58F431F37073E004D697B /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A58F421F37073E004D697B /* AsyncOperation.swift */; };
+		C1A58F461F371D21004D697B /* HPPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A58F451F371D21004D697B /* HPPlayer.swift */; };
 		C687F9089FB7DA1CD178231D /* Pods_HipTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D196133968DD8CA46E9580 /* Pods_HipTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,6 +66,7 @@
 		C19A4C491F35CC0300D0E4A8 /* HPDownloadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HPDownloadOperation.swift; sourceTree = "<group>"; };
 		C19A4C4B1F360FF700D0E4A8 /* HPDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HPDownloadManager.swift; sourceTree = "<group>"; };
 		C1A58F421F37073E004D697B /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
+		C1A58F451F371D21004D697B /* HPPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HPPlayer.swift; path = Player/HPPlayer.swift; sourceTree = "<group>"; };
 		D220B04C9329256238FEE45A /* Pods-HipTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HipTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HipTests/Pods-HipTests.release.xcconfig"; sourceTree = "<group>"; };
 		D9A8C8AAD6BACBBF5F3C381C /* Pods-Hip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hip/Pods-Hip.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,6 +180,7 @@
 		C19A4C471F35CC0300D0E4A8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C1A58F441F371D04004D697B /* Player */,
 				C19A4C481F35CC0300D0E4A8 /* DownloadManager */,
 			);
 			path = Common;
@@ -191,6 +194,14 @@
 				C1A58F421F37073E004D697B /* AsyncOperation.swift */,
 			);
 			path = DownloadManager;
+			sourceTree = "<group>";
+		};
+		C1A58F441F371D04004D697B /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				C1A58F451F371D21004D697B /* HPPlayer.swift */,
+			);
+			name = Player;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -480,6 +491,7 @@
 				C17ED8BA1F31F764009250F9 /* ViewController.swift in Sources */,
 				C19A4C4A1F35CC0300D0E4A8 /* HPDownloadOperation.swift in Sources */,
 				C19A4C4C1F360FF700D0E4A8 /* HPDownloadManager.swift in Sources */,
+				C1A58F461F371D21004D697B /* HPPlayer.swift in Sources */,
 				C17ED8B81F31F764009250F9 /* AppDelegate.swift in Sources */,
 				C1A58F431F37073E004D697B /* AsyncOperation.swift in Sources */,
 				C17ED8E61F3441C4009250F9 /* AZPlayer.swift in Sources */,

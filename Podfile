@@ -7,7 +7,7 @@ target 'Hip' do
 
   # Pods for Hip
   pod 'M3U8Kit', :git => 'https://github.com/azanium/M3U8Paser.git', :branch => 'master'
-  pod 'RxCocoa'
+  pod 'Alamofire'
 
   target 'HipTests' do
     inherit! :search_paths

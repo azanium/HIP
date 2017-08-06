@@ -15,15 +15,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
 
-        do {
-            let model = try M3U8PlaylistModel(url: URL(string: "http://pubcache1.arkiva.de/test/hls_index.m3u8"))
-            print("\(model.segmentNames(for: model.audioPl)!)")
-        }
-        catch _ {
-            
-        }
+        let player = HPPlayer(URL(string: "http://pubcache1.arkiva.de/test/hls_index.m3u8")!)
+        player.play()
         
-        HPDownloadManager.shared.addDownload(URL(string: "http://1.com")!)
+        /*HPDownloadManager.shared.addDownload(URL(string: "http://1.com")!)
         HPDownloadManager.shared.addDownload(URL(string: "http://2.com")!)
         HPDownloadManager.shared.addDownload(URL(string: "http://3.com")!)
         HPDownloadManager.shared.addDownload(URL(string: "http://4.com")!)
@@ -43,7 +38,7 @@ class ViewController: UIViewController {
             print("====================== DONE =========================")
         }
         
-        
+        */
     }
 
     override func didReceiveMemoryWarning() {

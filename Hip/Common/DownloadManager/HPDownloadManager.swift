@@ -19,6 +19,12 @@ class HPDownloadManager : NSObject {
     fileprivate var downloadOperations = [HPDownloadOperation]()
     fileprivate var _totalOperations = 0
     
+    var localDestination: URL {
+        let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        return documentsURL
+    }
+    
     var totalOperations: Int {
         return _totalOperations
     }
@@ -27,16 +33,14 @@ class HPDownloadManager : NSObject {
         return HPDownloadManager()
     }()
     
-    fileprivate var downloadQueue: OperationQueue = {
-        let queue = OperationQueue()
-        queue.maxConcurrentOperationCount = 2
-        queue.name = "MaxQ"
-        
-        return queue
-    }()
+    fileprivate var downloadQueue: OperationQueue = OperationQueue()
     
     override init() {
         super.init()
+
+        downloadQueue = OperationQueue()
+        downloadQueue.maxConcurrentOperationCount = 2
+        downloadQueue.name = "MaxQ"
         
         downloadQueue.addObserver(self, forKeyPath: "operationCount", options: NSKeyValueObservingOptions.new, context: nil)
     }
@@ -55,8 +59,9 @@ class HPDownloadManager : NSObject {
             
             if opCount.intValue > 0 {
                 DispatchQueue.main.async { [weak self] in
-                    let totalOp = (self?._totalOperations)!
-                    self?.progressHandler?(totalOp - opCount.intValue + 1, totalOp)
+                    if let totalOp = self?._totalOperations {
+                        self?.progressHandler?(totalOp - opCount.intValue + 1, totalOp)
+                    }
                 }
             }
             else {
@@ -69,8 +74,8 @@ class HPDownloadManager : NSObject {
         
     }
     
-    func addDownload(_ url: URL) {
-        let operation = HPDownloadOperation(url)
+    func addDownload(_ url: URL, offset: Int = 0, length: Int = 0) {
+        let operation = HPDownloadOperation(url, offset: offset, length: length)
         
         downloadOperations.append(operation)
         
