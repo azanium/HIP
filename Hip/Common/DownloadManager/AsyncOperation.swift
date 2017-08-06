@@ -52,6 +52,7 @@ open class AsyncOperation: Operation {
     
     
     // MARK: - NSObject
+    
     @objc private dynamic class func keyPathsForValuesAffectingIsReady() -> Set<String> {
         return ["state"]
     }

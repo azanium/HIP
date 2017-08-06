@@ -13,7 +13,7 @@ import M3U8Kit
 protocol HPStreamerDelegate {
     
     func streamerProgress(currentTask: Int, totalTask: Int)
-    func streamerAudioDownloaded(mediaPlaylist: String)
+    func streamerAudioDownloaded(mediaPlaylist: String, audioFile: String)
     
 }
 
@@ -141,7 +141,7 @@ class HPStreamer {
                     // Inform the delegate, we are now have the whole media
                     DispatchQueue.main.async {
                         
-                        self.delegate?.streamerAudioDownloaded(mediaPlaylist: audioPl.originalURL.lastPathComponent)
+                        self.delegate?.streamerAudioDownloaded(mediaPlaylist: audioPl.originalURL.lastPathComponent, audioFile: targetAudioFile)
                         
                     }
                 }
