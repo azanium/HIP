@@ -19,7 +19,7 @@ class HPDownloadManager : NSObject {
     fileprivate var downloadOperations = [HPDownloadOperation]()
     fileprivate var _totalOperations = 0
     
-    var localDestination: URL {
+    static var localDestination: URL {
         let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         
         return documentsURL
@@ -74,8 +74,8 @@ class HPDownloadManager : NSObject {
         
     }
     
-    func addDownload(_ url: URL, offset: Int = 0, length: Int = 0) {
-        let operation = HPDownloadOperation(url, offset: offset, length: length)
+    func addDownload(_ url: URL, offset: Int = 0, length: Int = 0, targetFilename: String = "audio.ts") {
+        let operation = HPDownloadOperation(url, offset: offset, length: length, targetFilename: targetFilename)
         
         downloadOperations.append(operation)
         

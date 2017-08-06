@@ -8,41 +8,82 @@
 
 import UIKit
 import M3U8Kit
+import AVFoundation
+import GCDWebServer
 
 class ViewController: UIViewController {
 
+    var asset: AVURLAsset!
+    var playerItem: AVPlayerItem!
+    var player: AVPlayer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
+        
+        let docUrl = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
+        print("=> \(docUrl.path)")
+        
         let player = HPPlayer(URL(string: "http://pubcache1.arkiva.de/test/hls_index.m3u8")!)
+        player.delegate = self
         player.play()
         
-        /*HPDownloadManager.shared.addDownload(URL(string: "http://1.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://2.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://3.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://4.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://5.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://6.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://7.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://8.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://9.com")!)
-        HPDownloadManager.shared.addDownload(URL(string: "http://10.com")!)
+        let webServer = GCDWebServer()
+        webServer.addGETHandler(forBasePath: "/", directoryPath: docUrl.path, indexFilename: nil, cacheAge: 0, allowRangeRequests: true)
+        webServer.start(withPort: 8080, bonjourName: nil)
         
-        HPDownloadManager.shared.start({ (currentTask, totalTask) in
-            
-            print("Finished task \(currentTask) of \(totalTask)")
-            
-        }) { 
-            
-            print("====================== DONE =========================")
-        }
-        
-        */
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+}
+
+extension ViewController : HPPlayerDelegate {
+
+    func playerProgress(currentTask: Int, totalTask: Int) {
+        
+    }
+    
+    func playerAudioDownloaded(mediaPlaylist: String) {
+        
+        let url = URL(string: "http://127.0.0.1:8080/\(mediaPlaylist)")!
+        
+        
+        
+        print("play: \(url.path)")
+        
+        asset = AVURLAsset(url: url, options: nil)
+        let trackKey = "tracks"
+        
+        asset.loadValuesAsynchronously(forKeys: [trackKey]) {
+            
+            DispatchQueue.main.async() {
+                
+                var error: NSError?
+                
+                if self.asset.statusOfValue(forKey: trackKey, error: &error) == .failed {
+                    print("failed: \(error!.localizedDescription)")
+                    return
+                }
+                
+                // We can't play this asset.
+                if !self.asset.isPlayable || self.asset.hasProtectedContent {
+                    print("not playable")
+                    
+                    return
+                }
+                
+                /*
+                 We can play this asset. Create a new AVPlayerItem and make it
+                 our player's current item.
+                 */
+                self.playerItem = AVPlayerItem(asset: self.asset)
+                self.player = AVPlayer(playerItem: self.playerItem)
+                self.player.play()
+            }
+            
+        }
+
     }
 }
