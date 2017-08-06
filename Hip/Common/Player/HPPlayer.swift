@@ -2,128 +2,119 @@
 //  HPPlayer.swift
 //  Hip
 //
-//  Created by Suhendra Ahmad on 8/6/17.
+//  Created by Suhendra Ahmad on 8/7/17.
 //  Copyright © 2017 Ainasoft. All rights reserved.
 //
 
-import Foundation
-import Alamofire
-import M3U8Kit
+import UIKit
+import AVFoundation
+import GCDWebServer
+
+enum HPPlayerState {
+    case uninitialized
+    case fetching
+    case playing
+    case paused
+    case completed
+}
 
 protocol HPPlayerDelegate {
     
-    func playerProgress(currentTask: Int, totalTask: Int)
-    func playerAudioDownloaded(mediaPlaylist: String)
+    func playerStreamProgress(finishedStream: Int, totalStreams: Int)
     
 }
 
 class HPPlayer {
     
-    let url: URL!
+    // MARK: - MemVars & Props
+    fileprivate var webServer = GCDWebServer()
     
-    fileprivate var _playlist: M3U8PlaylistModel!
-    var playlist: M3U8PlaylistModel {
-        return _playlist
+    // Media Url
+    var url: URL!
+    
+    // Assets
+    var asset: AVURLAsset!
+    var playerItem: AVPlayerItem!
+    var player: AVPlayer!
+    
+    fileprivate var _playerState = HPPlayerState.uninitialized
+    var playerState: HPPlayerState {
+        return _playerState
     }
     
-    fileprivate var _downloadManager = HPDownloadManager()
-    var downloadManager: HPDownloadManager {
-        return _downloadManager
-    }
+    fileprivate var streamer: HPStreamer!
     
     var delegate: HPPlayerDelegate?
     
+    // MARK: - Init
+    
     init(_ url: URL) {
         self.url = url
+        
+        // Spawn a web server
+        setupWebServer()
+        
+        streamer = HPStreamer(url)
     }
     
-    func play() {
-        do {
-            _playlist = try M3U8PlaylistModel(url: self.url)
-            print("\(_playlist.segmentNames(for: _playlist.audioPl)!)")
-            print("==> \(_playlist.audioPl.originalURL.lastPathComponent)")
-        }
-        catch _ {
-            print("# Failed to load playlist")
-        }
+    // MARK: - Methods
+    
+    func setupWebServer() {
+        let docUrl = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask)[0]
         
-        setupDownloadParts()
+        webServer.addGETHandler(forBasePath: "/", directoryPath: docUrl.path, indexFilename: nil, cacheAge: 0, allowRangeRequests: true)
+        webServer.start(withPort: 8080, bonjourName: nil)
     }
     
-    func setupDownloadParts() {
-        let audioPl = _playlist.audioPl
-        let targetMediaPlaylistFile = HPDownloadManager.localDestination.appendingPathComponent((audioPl?.originalURL.lastPathComponent)!)
+    func loadMedia() {
+        streamer.loadAsync(self)
+    }
+}
+
+extension HPPlayer : HPStreamerDelegate {
+    
+    func streamerProgress(currentTask: Int, totalTask: Int) {
         
-        // Cache the playlist
-        do {
-            try audioPl?.originalText.write(to: targetMediaPlaylistFile, atomically: true, encoding: String.Encoding.utf8)
-        }
-        catch let err {
-            print("Failed to save file: \(err) ")
-            return
-        }
+    }
+    
+    func streamerAudioDownloaded(mediaPlaylist: String) {
+        setupPlayer(mediaPlaylist: mediaPlaylist)
+    }
+    
+    func setupPlayer(mediaPlaylist: String) {
+        let url = URL(string: "http://127.0.0.1:8080/\(mediaPlaylist)")!
         
-        // Build the segment parts
-        if let segments = audioPl?.segmentList {
-            let partCount = segments.count
-            print("part Count: \(partCount)")
+        print("Play: \(url.path)")
+        
+        asset = AVURLAsset(url: url, options: nil)
+        let trackKey = "tracks"
+        
+        asset.loadValuesAsynchronously(forKeys: [trackKey]) {
             
-            var targetParts = [URL]()
-            var targetAudioFile = "audio.ts"
-            
-            for index in 0..<partCount {
-                if let info = segments.segmentInfo(at: index) {
-                    if let url = info.mediaURL(), let offset = info.bytesOffset, let length = info.bytesLength {
-                    
-                        // Target single audio file
-                        targetAudioFile = url.lastPathComponent
-                        
-                        // Temporary part file
-                        let targetFilename = "part_\(offset)_\(length).ts"
-                        
-                        targetParts += [HPDownloadManager.localDestination.appendingPathComponent(targetFilename)]
-                        
-                        HPDownloadManager.shared.addDownload(url, offset: Int(offset)!, length: Int(length)!, targetFilename: targetFilename)
-                    }
+            DispatchQueue.main.async() {
+                
+                var error: NSError?
+                
+                if self.asset.statusOfValue(forKey: trackKey, error: &error) == .failed {
+                    print("failed: \(error!.localizedDescription)")
+                    return
                 }
+                
+                // We can't play this asset.
+                if !self.asset.isPlayable || self.asset.hasProtectedContent {
+                    print("not playable")
+                    
+                    return
+                }
+                
+                /*
+                 We can play this asset. Create a new AVPlayerItem and make it
+                 our player's current item.
+                 */
+                self.playerItem = AVPlayerItem(asset: self.asset)
+                self.player = AVPlayer(playerItem: self.playerItem)
+                self.player.play()
             }
-            
-            HPDownloadManager.shared.start({ (finishedTask, totalTask) in
-                
-                DispatchQueue.main.async {
-                    self.delegate?.playerProgress(currentTask: finishedTask, totalTask: totalTask)
-                }
-                
-            }, { 
-                
-                print("Download finished: \(targetParts)")
-                
-                DispatchQueue.global().async {
-                    do {
-                        try FileManager.default.merge(files: targetParts, to: HPDownloadManager.localDestination.appendingPathComponent(targetAudioFile), chunkSize: 1000)
-                    }
-                    catch let err {
-                        print("* Merge failed: \(err)")
-                    }
-                    
-                    for file in targetParts {
-                        do {
-                            try FileManager.default.removeItem(at: file)
-                        }
-                        catch let err {
-                            print("* Failed to delete: \(err)")
-                        }
-                    }
-                    
-                    DispatchQueue.main.async {
-                        
-                        self.delegate?.playerAudioDownloaded(mediaPlaylist: (audioPl?.originalURL.lastPathComponent)!)
-                        
-                    }
-                }
-                
-                
-            })
         }
     }
 }

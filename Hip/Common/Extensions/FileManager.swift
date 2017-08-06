@@ -9,8 +9,12 @@
 import Foundation
 
 extension FileManager {
+    
+    // Merge several files
     func merge(files: [URL], to destination: URL, chunkSize: Int = 1000000) throws {
-        try FileManager.default.createFile(atPath: destination.path, contents: nil, attributes: nil)
+        
+        FileManager.default.createFile(atPath: destination.path, contents: nil, attributes: nil)
+        
         let writer = try FileHandle(forWritingTo: destination)
         try files.forEach({ partLocation in
             let reader = try FileHandle(forReadingFrom: partLocation)
