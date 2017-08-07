@@ -16,7 +16,6 @@
 		C17ED8C21F31F764009250F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C17ED8C01F31F764009250F9 /* LaunchScreen.storyboard */; };
 		C17ED8CD1F31F764009250F9 /* HipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17ED8CC1F31F764009250F9 /* HipTests.swift */; };
 		C17ED8D81F31F764009250F9 /* HipUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17ED8D71F31F764009250F9 /* HipUITests.swift */; };
-		C17ED8E61F3441C4009250F9 /* AZPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C17ED8E51F3441C4009250F9 /* AZPlayer.swift */; };
 		C19A4C4A1F35CC0300D0E4A8 /* HPDownloadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A4C491F35CC0300D0E4A8 /* HPDownloadOperation.swift */; };
 		C19A4C4C1F360FF700D0E4A8 /* HPDownloadManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C19A4C4B1F360FF700D0E4A8 /* HPDownloadManager.swift */; };
 		C1A58F431F37073E004D697B /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A58F421F37073E004D697B /* AsyncOperation.swift */; };
@@ -68,7 +67,6 @@
 		C17ED8D31F31F764009250F9 /* HipUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HipUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C17ED8D71F31F764009250F9 /* HipUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HipUITests.swift; sourceTree = "<group>"; };
 		C17ED8D91F31F764009250F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C17ED8E51F3441C4009250F9 /* AZPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AZPlayer.swift; sourceTree = "<group>"; };
 		C19A4C491F35CC0300D0E4A8 /* HPDownloadOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HPDownloadOperation.swift; sourceTree = "<group>"; };
 		C19A4C4B1F360FF700D0E4A8 /* HPDownloadManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HPDownloadManager.swift; sourceTree = "<group>"; };
 		C1A58F421F37073E004D697B /* AsyncOperation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
@@ -168,7 +166,6 @@
 				C17ED8BE1F31F764009250F9 /* Assets.xcassets */,
 				C17ED8C01F31F764009250F9 /* LaunchScreen.storyboard */,
 				C17ED8C31F31F764009250F9 /* Info.plist */,
-				C17ED8E51F3441C4009250F9 /* AZPlayer.swift */,
 			);
 			path = Hip;
 			sourceTree = "<group>";
@@ -535,7 +532,6 @@
 				C1CCCBB71F38165700576594 /* HPPlayerView.swift in Sources */,
 				C1A58F431F37073E004D697B /* AsyncOperation.swift in Sources */,
 				C1CCCBB51F37CC5100576594 /* HPPlayer.swift in Sources */,
-				C17ED8E61F3441C4009250F9 /* AZPlayer.swift in Sources */,
 				C1CCCBB31F378CA800576594 /* FileManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
