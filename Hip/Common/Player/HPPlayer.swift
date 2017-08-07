@@ -22,7 +22,7 @@ protocol HPPlayerDelegate {
     
     func playerStreamProgress(finishedStream: Int, totalStreams: Int)
     func playerStreamLoaded(player: HPPlayer)
-    
+    func playerPlayEnded(player: HPPlayer)
 }
 
 class HPPlayer {
@@ -93,6 +93,8 @@ class HPPlayer {
         _playerState = .completed
         
         cleanupCache()
+        
+        self.delegate?.playerPlayEnded(player: self)
     }
     
     fileprivate func cleanupCache() {
@@ -180,12 +182,9 @@ extension HPPlayer : HPStreamerDelegate {
                  */
                 self.playerItem = AVPlayerItem(asset: self.asset)
                 self.player = AVPlayer(playerItem: self.playerItem)
-                self.player.play()
-                
-                self._playerState = .playing
                 
                 self.delegate?.playerStreamLoaded(player: self)
             }
         }
     }
-}
+    }

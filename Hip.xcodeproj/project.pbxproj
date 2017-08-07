@@ -23,6 +23,10 @@
 		C1A58F461F371D21004D697B /* HPStreamer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1A58F451F371D21004D697B /* HPStreamer.swift */; };
 		C1CCCBB31F378CA800576594 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCCBB21F378CA800576594 /* FileManager.swift */; };
 		C1CCCBB51F37CC5100576594 /* HPPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCCBB41F37CC5100576594 /* HPPlayer.swift */; };
+		C1CCCBB71F38165700576594 /* HPPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCCBB61F38165700576594 /* HPPlayerView.swift */; };
+		C1CCCBBA1F383C8F00576594 /* PlaybackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCCBB91F383C8F00576594 /* PlaybackButton.swift */; };
+		C1CCCBBC1F383F1100576594 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCCBBB1F383F1100576594 /* UIColor.swift */; };
+		C1CCCBBE1F383F5700576594 /* String.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1CCCBBD1F383F5700576594 /* String.swift */; };
 		C687F9089FB7DA1CD178231D /* Pods_HipTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D196133968DD8CA46E9580 /* Pods_HipTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -72,6 +76,10 @@
 		C1CCCBAA1F375D1600576594 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C1CCCBB21F378CA800576594 /* FileManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FileManager.swift; path = Extensions/FileManager.swift; sourceTree = "<group>"; };
 		C1CCCBB41F37CC5100576594 /* HPPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HPPlayer.swift; path = Player/HPPlayer.swift; sourceTree = "<group>"; };
+		C1CCCBB61F38165700576594 /* HPPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = HPPlayerView.swift; path = Player/HPPlayerView.swift; sourceTree = "<group>"; };
+		C1CCCBB91F383C8F00576594 /* PlaybackButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PlaybackButton.swift; path = UI/PlaybackButton.swift; sourceTree = "<group>"; };
+		C1CCCBBB1F383F1100576594 /* UIColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UIColor.swift; path = Extensions/UIColor.swift; sourceTree = "<group>"; };
+		C1CCCBBD1F383F5700576594 /* String.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = String.swift; path = Extensions/String.swift; sourceTree = "<group>"; };
 		D220B04C9329256238FEE45A /* Pods-HipTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-HipTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-HipTests/Pods-HipTests.release.xcconfig"; sourceTree = "<group>"; };
 		D9A8C8AAD6BACBBF5F3C381C /* Pods-Hip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Hip.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Hip/Pods-Hip.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -186,6 +194,7 @@
 		C19A4C471F35CC0300D0E4A8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C1CCCBB81F383C7900576594 /* UI */,
 				C1CCCBB11F378C9300576594 /* Extensions */,
 				C1A58F441F371D04004D697B /* Player */,
 				C19A4C481F35CC0300D0E4A8 /* DownloadManager */,
@@ -208,6 +217,7 @@
 			children = (
 				C1A58F451F371D21004D697B /* HPStreamer.swift */,
 				C1CCCBB41F37CC5100576594 /* HPPlayer.swift */,
+				C1CCCBB61F38165700576594 /* HPPlayerView.swift */,
 			);
 			name = Player;
 			sourceTree = "<group>";
@@ -216,8 +226,18 @@
 			isa = PBXGroup;
 			children = (
 				C1CCCBB21F378CA800576594 /* FileManager.swift */,
+				C1CCCBBB1F383F1100576594 /* UIColor.swift */,
+				C1CCCBBD1F383F5700576594 /* String.swift */,
 			);
 			name = Extensions;
+			sourceTree = "<group>";
+		};
+		C1CCCBB81F383C7900576594 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				C1CCCBB91F383C8F00576594 /* PlaybackButton.swift */,
+			);
+			name = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -504,11 +524,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1CCCBBA1F383C8F00576594 /* PlaybackButton.swift in Sources */,
+				C1CCCBBE1F383F5700576594 /* String.swift in Sources */,
+				C1CCCBBC1F383F1100576594 /* UIColor.swift in Sources */,
 				C17ED8BA1F31F764009250F9 /* ViewController.swift in Sources */,
 				C19A4C4A1F35CC0300D0E4A8 /* HPDownloadOperation.swift in Sources */,
 				C19A4C4C1F360FF700D0E4A8 /* HPDownloadManager.swift in Sources */,
 				C1A58F461F371D21004D697B /* HPStreamer.swift in Sources */,
 				C17ED8B81F31F764009250F9 /* AppDelegate.swift in Sources */,
+				C1CCCBB71F38165700576594 /* HPPlayerView.swift in Sources */,
 				C1A58F431F37073E004D697B /* AsyncOperation.swift in Sources */,
 				C1CCCBB51F37CC5100576594 /* HPPlayer.swift in Sources */,
 				C17ED8E61F3441C4009250F9 /* AZPlayer.swift in Sources */,

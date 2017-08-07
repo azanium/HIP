@@ -6,6 +6,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -21,23 +22,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wtT-Bz-RHw">
-                                <rect key="frame" x="111" y="291" width="152" height="84"/>
-                                <color key="backgroundColor" red="0.39683966999999998" green="1" blue="0.55424987120000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="HiP" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Feo-E0-Mr6">
+                                <rect key="frame" x="16" y="64" width="343" height="64"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="84" id="2ki-qd-Tao"/>
-                                    <constraint firstAttribute="width" constant="152" id="Vpx-du-T8j"/>
+                                    <constraint firstAttribute="height" constant="64" id="BTh-82-Ws3"/>
                                 </constraints>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="play" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ufm-96-65w"/>
-                                </connections>
-                            </button>
+                                <fontDescription key="fontDescription" name="BodoniSvtyTwoOSITCTT-Book" family="Bodoni 72 Oldstyle" pointSize="61"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.9048185726712803" green="0.9048185726712803" blue="0.9048185726712803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="wtT-Bz-RHw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="W1O-3f-mx6"/>
-                            <constraint firstItem="wtT-Bz-RHw" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ozr-Pm-XXN"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="Feo-E0-Mr6" secondAttribute="leading" id="7zA-SS-nMh"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Feo-E0-Mr6" secondAttribute="trailing" id="VH6-fU-w4a"/>
+                            <constraint firstItem="Feo-E0-Mr6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="hnH-1t-4Gi"/>
                         </constraints>
                     </view>
                 </viewController>

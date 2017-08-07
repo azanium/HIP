@@ -15,6 +15,8 @@ target 'Hip' do
   pod 'M3U8Kit', :git => 'https://github.com/azanium/M3U8Paser.git', :branch => 'master'
   pod 'Alamofire'
   pod 'GCDWebServer'
+  pod 'Pastel'
+  pod 'SnapKit'
 
   target 'HipTests' do
     inherit! :search_paths
