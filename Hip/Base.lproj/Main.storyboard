@@ -31,14 +31,29 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZCk-1w-pEb" customClass="HPPlayerView" customModule="Hip" customModuleProvider="target">
+                                <rect key="frame" x="127" y="273" width="120" height="120"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="GfO-Qf-31j"/>
+                                    <constraint firstAttribute="height" constant="120" id="NFI-tO-EaH"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.9048185726712803" green="0.9048185726712803" blue="0.9048185726712803" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="leadingMargin" secondItem="Feo-E0-Mr6" secondAttribute="leading" id="7zA-SS-nMh"/>
+                            <constraint firstItem="ZCk-1w-pEb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8H3-4S-WbA"/>
+                            <constraint firstItem="ZCk-1w-pEb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="IV0-ex-6dZ"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Feo-E0-Mr6" secondAttribute="trailing" id="VH6-fU-w4a"/>
                             <constraint firstItem="Feo-E0-Mr6" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="44" id="hnH-1t-4Gi"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="playbackButtonHorizontalConstraint" destination="8H3-4S-WbA" id="AYS-yz-rpv"/>
+                        <outlet property="playbackButtonVerticalConstraint" destination="IV0-ex-6dZ" id="JDO-Ev-Pp2"/>
+                        <outlet property="playbackButtonView" destination="ZCk-1w-pEb" id="pKg-Qd-Z7C"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>

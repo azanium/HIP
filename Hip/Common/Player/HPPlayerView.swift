@@ -127,6 +127,7 @@ class HPPlayerView: UIView {
             self._player?.loadMedia()
             
         }
+    
     }
 }
 

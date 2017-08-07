@@ -12,10 +12,11 @@ import SnapKit
 
 class ViewController: UIViewController {
 
-    var player: HPPlayer!
-    var playerView: HPPlayerView!
+    @IBOutlet weak var playbackButtonView: HPPlayerView!
+    @IBOutlet weak var playbackButtonHorizontalConstraint: NSLayoutConstraint!
+    @IBOutlet weak var playbackButtonVerticalConstraint: NSLayoutConstraint!
     
-    var playButton: PlaybackButton!
+    var player: HPPlayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +25,7 @@ class ViewController: UIViewController {
     
         player = HPPlayer(URL(string: "http://pubcache1.arkiva.de/test/hls_index.m3u8")!)
         
-        playerView = HPPlayerView(frame: CGRect(x: view.bounds.width / 2 - 50, y: view.bounds.height / 2 - 50, width: 100, height: 100))
-        view.addSubview(playerView)
-        
-        playerView.player = player
+        playbackButtonView.player = player
     }
 
     override func didReceiveMemoryWarning() {
