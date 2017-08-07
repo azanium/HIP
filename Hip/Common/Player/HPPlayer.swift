@@ -92,6 +92,7 @@ class HPPlayer {
         playerItem = nil
         _playerState = .completed
         
+        // Clean up all cached files downloaded from HLS server
         cleanupCache()
         
         self.delegate?.playerPlayEnded(player: self)

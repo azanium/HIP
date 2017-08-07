@@ -86,14 +86,14 @@ class ViewController: UIViewController {
         if let _ = sender.view as? HPPlayerView {
             let translation = sender.translation(in: self.view)
             sender.setTranslation(CGPoint.zero, in: self.view)
-            moveByDeltaX(deltaX: translation.x, deltaY: translation.y)
+            movePlayerByDeltaX(deltaX: translation.x, deltaY: translation.y)
         }
     }
     
-    func moveByDeltaX(deltaX: CGFloat, deltaY: CGFloat) {
+    func movePlayerByDeltaX(deltaX: CGFloat, deltaY: CGFloat) {
         
         self.view.layoutIfNeeded()
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: { [weak self] in
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveLinear, animations: { [weak self] in
             
             self?.playbackButtonHorizontalConstraint.constant += deltaX
             self?.playbackButtonVerticalConstraint.constant += deltaY
@@ -102,7 +102,7 @@ class ViewController: UIViewController {
         }, completion: nil)
     }
     
-    func moveVertical(targetY: CGFloat) {
+    func movePlayerVertical(targetY: CGFloat) {
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.5,
                        delay: 0,
@@ -116,7 +116,7 @@ class ViewController: UIViewController {
             }, completion: nil)
     }
     
-    func moveHorizontal(targetX: CGFloat) {
+    func movePlayerHorizontal(targetX: CGFloat) {
         self.view.layoutIfNeeded()
         UIView.animate(withDuration: 0.5,
                        delay: 0,
@@ -139,22 +139,22 @@ class ViewController: UIViewController {
         
         if sender.direction == .up {
             let targetY = -((boundHeight * 0.5) - (height * 0.5))
-            moveVertical(targetY: targetY)
+            movePlayerVertical(targetY: targetY)
         }
         
         if sender.direction == .down {
             let targetY = (boundHeight * 0.5) - (height * 0.5)
-            moveVertical(targetY: targetY)
+            movePlayerVertical(targetY: targetY)
         }
         
         if sender.direction == .left {
             let targetX = -((boundWidth * 0.5) - (width * 0.5))
-            moveHorizontal(targetX: targetX)
+            movePlayerHorizontal(targetX: targetX)
         }
         
         if sender.direction == .right {
             let targetX = (boundWidth * 0.5) - (width * 0.5)
-            moveHorizontal(targetX: targetX)
+            movePlayerHorizontal(targetX: targetX)
         }
         
     }

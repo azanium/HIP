@@ -10,6 +10,8 @@ import UIKit
 
 class HPPlayerView: UIView {
 
+    // MARK: - MemVars & Props
+    
     fileprivate let circlePathLayer = CAShapeLayer()
     var playbackButton: PlaybackButton!
     
@@ -41,6 +43,8 @@ class HPPlayerView: UIView {
         }
     }
     
+    // MARK: - Init
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -52,6 +56,8 @@ class HPPlayerView: UIView {
         
         setupView()
     }
+    
+    // MARK: - Views
     
     fileprivate func setupView() {
         
@@ -76,8 +82,6 @@ class HPPlayerView: UIView {
         playbackButton = PlaybackButton(frame: bounds)
         playbackButton.backgroundColor = UIColor(hex: "a0a0a0", alpha: 0.7)
         playbackButton.layer.cornerRadius = playbackButton.frame.size.height / 2
-        playbackButton.layer.borderWidth = 5
-        playbackButton.layer.borderColor = UIColor.clear.cgColor//(hex: "a0a0a0", alpha: 0.7).cgColor
         playbackButton.adjustMargin = 1
         playbackButton.contentEdgeInsets = UIEdgeInsets(top: 25, left: 25, bottom: 25, right: 25)
         playbackButton.duration = 0.4
@@ -96,6 +100,7 @@ class HPPlayerView: UIView {
         return circleFrame
     }
     
+    // Circle path for spinner
     fileprivate func circlePath() -> UIBezierPath {
         return UIBezierPath(ovalIn: circleFrame())
     }
@@ -103,6 +108,7 @@ class HPPlayerView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        // We must put circle path for spinner here, since we dont use NSLayoutConstraint to make it adaptive
         circlePathLayer.frame = bounds
         circlePathLayer.path = circlePath().cgPath
     }
@@ -124,6 +130,7 @@ class HPPlayerView: UIView {
         }
         else if playbackButton.buttonState == .pending {
             
+            // When play back button tapped in pending state load the media
             self._player?.loadMedia()
             
         }
@@ -134,17 +141,21 @@ class HPPlayerView: UIView {
 extension HPPlayerView : HPPlayerDelegate {
     
     func playerStreamProgress(finishedStream: Int, totalStreams: Int) {
+        
+        // Update spinner
         self.progress = CGFloat(finishedStream) / CGFloat(totalStreams)
     }
     
     func playerStreamLoaded(player: HPPlayer) {
         
+        // The stream is ready, inform the UI to enable play button
         self.playbackButton.setButtonState(.pausing, animated: true)
         circlePathLayer.isHidden = true
     }
     
     func playerPlayEnded(player: HPPlayer) {
         
+        // The playback is ended, reset spinner and playback button
         self.playbackButton.setButtonState(.pending, animated: true)
         circlePathLayer.isHidden = false
         progress = 0

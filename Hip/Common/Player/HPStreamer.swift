@@ -45,8 +45,7 @@ class HPStreamer {
         
         do {
             _playlist = try M3U8PlaylistModel(url: self.url)
-            print("\(_playlist.segmentNames(for: _playlist.audioPl)!)")
-            print("==> \(_playlist.audioPl.originalURL.lastPathComponent)")
+            print("==> Loaded m3u8 Playlist: \(_playlist.audioPl.originalURL.lastPathComponent)")
         }
         catch _ {
             print("# Failed to load playlist")

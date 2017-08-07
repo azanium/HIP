@@ -4,6 +4,9 @@ HLS Audio Multithreaded Player
 # Descriptions
 This is a app for iOS using Swift 3.x for proof of concept of downloading audio track from HLS m3u8 file using multithreaded download
 
+# Demo
+https://youtu.be/v2N6QMTp46o 
+
 # Features
 * HTTP framework using Alamofire
 * Using NSOperation and NSOperationQueue for async concurrent downloads, with max concurrent task set to 2
