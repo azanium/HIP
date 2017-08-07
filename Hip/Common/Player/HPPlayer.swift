@@ -91,6 +91,36 @@ class HPPlayer {
         asset = nil
         playerItem = nil
         _playerState = .completed
+        
+        cleanupCache()
+    }
+    
+    fileprivate func cleanupCache() {
+        
+        guard let docUrl = FileManager.default.urls(for: .documentDirectory, in: .allDomainsMask).first else {
+            return
+        }
+        
+        // Delete the playlist
+        let playlistUrl = docUrl.appendingPathComponent(mediaPlaylist)
+        if FileManager.default.fileExists(atPath: playlistUrl.path) {
+            do {
+                try FileManager.default.removeItem(at: playlistUrl)
+            }
+            catch let error {
+                print("* Failed to delete playlist: \(error)")
+            }
+        }
+        
+        let audioFileUrl = docUrl.appendingPathComponent(audioFile)
+        if FileManager.default.fileExists(atPath: audioFileUrl.path) {
+            do {
+                try FileManager.default.removeItem(at: audioFileUrl)
+            }
+            catch let error {
+                print("* Failed to delete audio file: \(error)")
+            }
+        }
     }
     
     func pauseOrPlay() {

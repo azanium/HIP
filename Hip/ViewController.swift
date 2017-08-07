@@ -20,7 +20,6 @@ class ViewController: UIViewController {
     
         player = HPPlayer(URL(string: "http://pubcache1.arkiva.de/test/hls_index.m3u8")!)
         player.delegate = self
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -29,7 +28,6 @@ class ViewController: UIViewController {
     }
     
     @IBAction func play() {
-        
         if player.playerState == .playing || player.playerState == .paused {
             player.pauseOrPlay()
         }
