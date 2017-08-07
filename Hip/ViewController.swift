@@ -26,12 +26,27 @@ class ViewController: UIViewController {
         player = HPPlayer(URL(string: "http://pubcache1.arkiva.de/test/hls_index.m3u8")!)
         
         playbackButtonView.player = player
+        
+        // Add drag and drop
+        let panGestureRecognizer = UIPanGestureRecognizer()
+        panGestureRecognizer.addTarget(self, action: #selector(draggedView(sender:)))
+        playbackButtonView.addGestureRecognizer(panGestureRecognizer)
+    
+        addSwipeGestureTo(targetView: playbackButtonView, direction: .up)
+        addSwipeGestureTo(targetView: playbackButtonView, direction: .down)
+        addSwipeGestureTo(targetView: playbackButtonView, direction: .left)
+        addSwipeGestureTo(targetView: playbackButtonView, direction: .right)
+    
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func addSwipeGestureTo(targetView: UIView, direction: UISwipeGestureRecognizerDirection) {
+        let swipeGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(swipeRecognizer(sender:)))
+        swipeGestureRecognizer.direction = direction
+        swipeGestureRecognizer.numberOfTouchesRequired = 1
+        targetView.addGestureRecognizer(swipeGestureRecognizer)
     }
+    
+    // MARK: - UI Setup
     
     func setupGradientBackground() {
         let pastelView = PastelView()
@@ -58,5 +73,89 @@ class ViewController: UIViewController {
         pastelView.snp.remakeConstraints { (make) in
             make.edges.equalToSuperview()
         }
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    // MARK: - Pan and Swipe
+    
+    @objc func draggedView(sender:UIPanGestureRecognizer){
+        if let _ = sender.view as? HPPlayerView {
+            let translation = sender.translation(in: self.view)
+            sender.setTranslation(CGPoint.zero, in: self.view)
+            moveByDeltaX(deltaX: translation.x, deltaY: translation.y)
+        }
+    }
+    
+    func moveByDeltaX(deltaX: CGFloat, deltaY: CGFloat) {
+        
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: { [weak self] in
+            
+            self?.playbackButtonHorizontalConstraint.constant += deltaX
+            self?.playbackButtonVerticalConstraint.constant += deltaY
+            self?.view.layoutIfNeeded()
+            
+        }, completion: nil)
+    }
+    
+    func moveVertical(targetY: CGFloat) {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       options: .curveEaseOut,
+                       animations: { [weak self] in
+                        
+                        self?.playbackButtonVerticalConstraint.constant = targetY
+                        self?.view.layoutIfNeeded()
+                        
+                        
+            }, completion: nil)
+    }
+    
+    func moveHorizontal(targetX: CGFloat) {
+        self.view.layoutIfNeeded()
+        UIView.animate(withDuration: 0.5,
+                       delay: 0,
+                       options: .curveEaseOut,
+                       animations: { [weak self] in
+                        
+                        self?.playbackButtonHorizontalConstraint.constant = targetX
+                        self?.view.layoutIfNeeded()
+                        
+                        
+            }, completion: nil)
+    }
+    
+    @objc func swipeRecognizer(sender: UISwipeGestureRecognizer) {
+        
+        let boundWidth = view.bounds.width
+        let boundHeight = view.bounds.height
+        let width = playbackButtonView.bounds.width
+        let height = playbackButtonView.bounds.height
+        
+        if sender.direction == .up {
+            let targetY = -((boundHeight * 0.5) - (height * 0.5))
+            moveVertical(targetY: targetY)
+        }
+        
+        if sender.direction == .down {
+            let targetY = (boundHeight * 0.5) - (height * 0.5)
+            moveVertical(targetY: targetY)
+        }
+        
+        if sender.direction == .left {
+            let targetX = -((boundWidth * 0.5) - (width * 0.5))
+            moveHorizontal(targetX: targetX)
+        }
+        
+        if sender.direction == .right {
+            let targetX = (boundWidth * 0.5) - (width * 0.5)
+            moveHorizontal(targetX: targetX)
+        }
+        
     }
 }
